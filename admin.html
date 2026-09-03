@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Painel administrativo</title>
-    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="admin.css">
 </head>
 <body>
 
@@ -15,57 +17,284 @@
     </script>
 
     <header class="admin-header">
-        <img 
-            src="imagens/logo-simples.png" 
-            alt="Logo da escola"
-        >
+        <div class="admin-brand">
+            <span class="admin-logo">JM</span>
+            <div>
+                <strong>Portal administrativo</strong>
+                <small>EEEI Prof. Joaquim Andrade Meirelles</small>
+            </div>
+        </div>
 
-        <div>
+        <div class="admin-user">
             <span id="nomeAdministrador"></span>
-            <button id="btnSair">Sair</button>
+            <a href="index.html" class="btn-ver-site">Ver site</a>
+            <button id="btnSair" class="btn-sair">Sair</button>
         </div>
     </header>
 
-    <main class="admin-container">
-        <h1>Painel administrativo</h1>
-        <p>Gerencie as informações exibidas no portal escolar.</p>
+    <main class="admin-layout">
 
-        <section class="admin-menu">
-            <button onclick="mostrarSecao('posts')">
-                Gerenciar posts
+        <aside class="admin-sidebar">
+            <button class="menu-admin ativo" data-secao="inicio">
+                Visão geral
             </button>
 
-            <button onclick="mostrarSecao('calendario')">
-                Gerenciar calendário
+            <button class="menu-admin" data-secao="posts">
+                Posts do blog
             </button>
 
-            <button onclick="mostrarSecao('equipe')">
-                Gerenciar equipe
+            <button class="menu-admin" data-secao="eventos">
+                Calendário
             </button>
 
-            <button onclick="mostrarSecao('interclasse')">
-                Gerenciar interclasse
+            <button class="menu-admin" data-secao="equipe">
+                Profissionais
             </button>
-        </section>
 
-        <section id="posts" class="admin-secao">
-            <h2>Posts do blog</h2>
-            <p>Aqui ficará o cadastro, edição e exclusão dos posts.</p>
-        </section>
+            <button class="menu-admin" data-secao="jogos">
+                Interclasse
+            </button>
+            <a href="index.html" class="link-menu-admin">Ver site público</a>
+        </aside>
 
-        <section id="calendario" class="admin-secao">
-            <h2>Calendário escolar</h2>
-            <p>Aqui ficarão eventos, tarefas, trabalhos e jogos.</p>
-        </section>
+        <section class="admin-content">
 
-        <section id="equipe" class="admin-secao">
-            <h2>Profissionais da escola</h2>
-            <p>Aqui será possível cadastrar e editar funcionários.</p>
-        </section>
+            <section id="inicio" class="secao-admin ativa">
+                <h1>Visão geral</h1>
+                <p class="descricao-admin">
+                    Gerencie as informações apresentadas no portal da escola.
+                </p>
 
-        <section id="interclasse" class="admin-secao">
-            <h2>Interclasse</h2>
-            <p>Aqui serão gerenciados jogos e classificação.</p>
+                <div class="cards-resumo">
+                    <div class="card-resumo">
+                        <span id="totalPosts">0</span>
+                        <p>Posts cadastrados</p>
+                    </div>
+
+                    <div class="card-resumo">
+                        <span id="totalEventos">0</span>
+                        <p>Eventos cadastrados</p>
+                    </div>
+
+                    <div class="card-resumo">
+                        <span id="totalEquipe">0</span>
+                        <p>Profissionais cadastrados</p>
+                    </div>
+
+                    <div class="card-resumo">
+                        <span id="totalJogos">0</span>
+                        <p>Jogos cadastrados</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="posts" class="secao-admin">
+                <div class="titulo-secao">
+                    <div>
+                        <h1>Posts do blog</h1>
+                        <p>Adicione, edite ou remova notícias da escola.</p>
+                    </div>
+
+                    <button class="btn-principal" id="btnNovoPost">
+                        Novo post
+                    </button>
+                </div>
+
+                <form id="formPost" class="form-admin oculto">
+                    <input type="hidden" id="postId">
+
+                    <label for="postTitulo">Título</label>
+                    <input type="text" id="postTitulo" required>
+
+                    <label for="postResumo">Resumo</label>
+                    <textarea id="postResumo" rows="3" required></textarea>
+
+                    <label for="postConteudo">Conteúdo</label>
+                    <textarea id="postConteudo" rows="6" required></textarea>
+
+                    <label for="postImagem">Caminho da imagem</label>
+                    <input
+                        type="text"
+                        id="postImagem"
+                        placeholder="imagens/nome-da-imagem.jpg"
+                    >
+
+                    <label for="postData">Data de publicação</label>
+                    <input type="date" id="postData" required>
+
+                    <div class="acoes-form">
+                        <button type="submit" class="btn-principal">
+                            Salvar post
+                        </button>
+
+                        <button type="button" class="btn-secundario" id="cancelarPost">
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+
+                <div id="listaPosts" class="lista-admin"></div>
+            </section>
+
+            <section id="eventos" class="secao-admin">
+                <div class="titulo-secao">
+                    <div>
+                        <h1>Calendário escolar</h1>
+                        <p>Gerencie eventos, tarefas, provas e trabalhos.</p>
+                    </div>
+
+                    <button class="btn-principal" id="btnNovoEvento">
+                        Novo evento
+                    </button>
+                </div>
+
+                <form id="formEvento" class="form-admin oculto">
+                    <input type="hidden" id="eventoId">
+
+                    <label for="eventoTitulo">Título</label>
+                    <input type="text" id="eventoTitulo" required>
+
+                    <label for="eventoDescricao">Descrição</label>
+                    <textarea id="eventoDescricao" rows="4" required></textarea>
+
+                    <label for="eventoTipo">Tipo</label>
+                    <select id="eventoTipo" required>
+                        <option value="">Selecione</option>
+                        <option value="Evento escolar">Evento escolar</option>
+                        <option value="Entrega de trabalho">Entrega de trabalho</option>
+                        <option value="Tarefa">Tarefa</option>
+                        <option value="Prova">Prova</option>
+                        <option value="Jogo do interclasse">Jogo do interclasse</option>
+                    </select>
+
+                    <label for="eventoTurma">Turma</label>
+                    <select id="eventoTurma" required>
+                        <option value="Todas">Todas as turmas</option>
+                        <option value="1º A">1º A</option>
+                        <option value="1º B">1º B</option>
+                        <option value="2º A">2º A</option>
+                        <option value="2º B">2º B</option>
+                        <option value="3º A">3º A</option>
+                        <option value="3º B">3º B</option>
+                    </select>
+
+                    <label for="eventoData">Data</label>
+                    <input type="date" id="eventoData" required>
+
+                    <div class="acoes-form">
+                        <button type="submit" class="btn-principal">
+                            Salvar evento
+                        </button>
+
+                        <button type="button" class="btn-secundario" id="cancelarEvento">
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+
+                <div id="listaEventos" class="lista-admin"></div>
+            </section>
+
+            <section id="equipe" class="secao-admin">
+                <div class="titulo-secao">
+                    <div>
+                        <h1>Profissionais</h1>
+                        <p>Gerencie os profissionais apresentados no site.</p>
+                    </div>
+
+                    <button class="btn-principal" id="btnNovoProfissional">
+                        Novo profissional
+                    </button>
+                </div>
+
+                <form id="formProfissional" class="form-admin oculto">
+                    <input type="hidden" id="profissionalId">
+
+                    <label for="profissionalNome">Nome</label>
+                    <input type="text" id="profissionalNome" required>
+
+                    <label for="profissionalCargo">Cargo</label>
+                    <input type="text" id="profissionalCargo" required>
+
+                    <label for="profissionalDescricao">Descrição</label>
+                    <textarea id="profissionalDescricao" rows="4" required></textarea>
+
+                    <label for="profissionalImagem">Caminho da imagem</label>
+                    <input
+                        type="text"
+                        id="profissionalImagem"
+                        placeholder="imagens/equipe/nome.jpg"
+                    >
+
+                    <div class="acoes-form">
+                        <button type="submit" class="btn-principal">
+                            Salvar profissional
+                        </button>
+
+                        <button type="button" class="btn-secundario" id="cancelarProfissional">
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+
+                <div id="listaEquipe" class="lista-admin"></div>
+            </section>
+
+            <section id="jogos" class="secao-admin">
+                <div class="titulo-secao">
+                    <div>
+                        <h1>Interclasse</h1>
+                        <p>Cadastre os próximos jogos do interclasse.</p>
+                    </div>
+
+                    <button class="btn-principal" id="btnNovoJogo">
+                        Novo jogo
+                    </button>
+                </div>
+
+                <form id="formJogo" class="form-admin oculto">
+                    <input type="hidden" id="jogoId">
+
+                    <label for="jogoModalidade">Modalidade</label>
+                    <input type="text" id="jogoModalidade" placeholder="Ex.: Futsal" required>
+
+                    <label for="jogoTurmaA">Primeira turma</label>
+                    <input type="text" id="jogoTurmaA" placeholder="Ex.: 2º A" required>
+
+                    <label for="jogoTurmaB">Segunda turma</label>
+                    <input type="text" id="jogoTurmaB" placeholder="Ex.: 3º B" required>
+
+                    <label for="jogoDia">Dia</label>
+                    <input type="date" id="jogoDia" required>
+
+                    <label for="jogoPeriodo">Período</label>
+                    <select id="jogoPeriodo" required>
+                        <option value="">Selecione</option>
+                        <option value="1">1º período</option>
+                        <option value="2">2º período</option>
+                        <option value="3">3º período</option>
+                        <option value="4">4º período</option>
+                        <option value="5">5º período</option>
+                        <option value="6">6º período</option>
+                        <option value="7">7º período</option>
+                        <option value="8">8º período</option>
+                        <option value="9">9º período</option>
+                    </select>
+
+                    <div class="acoes-form">
+                        <button type="submit" class="btn-principal">
+                            Salvar jogo
+                        </button>
+
+                        <button type="button" class="btn-secundario" id="cancelarJogo">
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+
+                <div id="listaJogos" class="lista-admin"></div>
+            </section>
+
         </section>
     </main>
 
