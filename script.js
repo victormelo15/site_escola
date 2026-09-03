@@ -73,3 +73,9 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
 });
+  const btnlogin = document.querySelector(".btn-login");
+
+  if (btnlogin && sessionStorage.getItem("adminAutorizado") === "true") {
+      btnlogin.textContent = "Painel administrativo";
+      btnlogin.href = "admin.html";
+}

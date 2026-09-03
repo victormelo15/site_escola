@@ -353,3 +353,36 @@ body {
         flex: 1;
     }
 }
+
+.btn-ver-site {
+    padding: 9px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-ver-site:hover {
+    background: #ffffff;
+    color: #102f54;
+}
+
+.link-menu-admin {
+    display: block;
+    width: 100%;
+    padding: 14px 16px;
+    margin-top: 22px;
+    border-top: 1px solid #dce2ea;
+    color: #315f91;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.link-menu-admin:hover {
+    color: #102f54;
+    text-decoration: underline;
+}
